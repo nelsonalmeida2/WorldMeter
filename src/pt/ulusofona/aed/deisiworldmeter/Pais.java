@@ -18,11 +18,6 @@ public class Pais {
 
     @Override
     public String toString() {
-        return "Pais{" +
-                "id=" + id +
-                ", alfa2='" + alfa2 + '\'' +
-                ", alfa3='" + alfa3 + '\'' +
-                ", nome='" + nome + '\'' +
-                '}';
+        return nome + " | " + id + " | " + alfa2 + " | " + alfa3;
     }
 }
