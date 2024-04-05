@@ -48,12 +48,21 @@ public class Main {
                             }
                         }
                         if (repetido) {
-                            listaPaisesInvalidos.primeiraLinhaIncorreta = linhaNum;
+                            if (primeiraInvalida) {
+                                listaPaisesInvalidos.primeiraLinhaIncorreta = linhaNum;
+                                primeiraInvalida = false;
+                            }
                             listaPaisesInvalidos.linhasIncorretas ++;
                         } else {
-                            Pais pais = new Pais(Integer.parseInt(partes[0]),partes[1].toUpperCase(),partes[2].toUpperCase(),partes[3]);
-                            listaPaises.add(pais);
-                            listaPaisesInvalidos.linhasCorretas ++;
+                            if (Integer.parseInt(partes[0]) >= 700) {
+                                Pais pais = new Pais(Integer.parseInt(partes[0]),partes[1].toUpperCase(),partes[2].toUpperCase(),partes[3],-1);
+                                listaPaises.add(pais);
+                                listaPaisesInvalidos.linhasCorretas ++;
+                            }else {
+                                Pais pais = new Pais(Integer.parseInt(partes[0]),partes[1].toUpperCase(),partes[2].toUpperCase(),partes[3]);
+                                listaPaises.add(pais);
+                                listaPaisesInvalidos.linhasCorretas ++;
+                            }
                         }
                     }
                     linhaNum++;
@@ -83,15 +92,29 @@ public class Main {
                             listaCidadesInvalidos.primeiraLinhaIncorreta = linhaNum;
                             primeiraInvalida = false;
                         }
-                        linhaNum ++;
                         listaCidadesInvalidos.linhasIncorretas ++;
                     } else {
-                        Cidade cidade = new Cidade(partes[0].toUpperCase(),partes[1],partes[2],(int)Double.parseDouble(partes[3]),
-                                Double.parseDouble(partes[4]),Double.parseDouble(partes[5]));
-                        linhaNum++;
-                        listaCidades.add(cidade);
-                        listaCidadesInvalidos.linhasCorretas ++;
+                        boolean paisExiste = false;
+                            for (Pais pais : listaPaises) {
+                                if (partes[0].toUpperCase().equals(pais.alfa2)) {
+                                    paisExiste = true;
+                                    break;
+                                }
+                        }
+                        if (!paisExiste) {
+                            if (primeiraInvalida) {
+                                listaCidadesInvalidos.primeiraLinhaIncorreta = linhaNum;
+                                primeiraInvalida = false;
+                            }
+                            listaCidadesInvalidos.linhasIncorretas ++;
+                        } else {
+                            Cidade cidade = new Cidade(partes[0].toUpperCase(),partes[1],partes[2],(int)Double.parseDouble(partes[3]),
+                                    Double.parseDouble(partes[4]),Double.parseDouble(partes[5]));
+                            listaCidades.add(cidade);
+                            listaCidadesInvalidos.linhasCorretas ++;
+                        }
                     }
+                    linhaNum++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -118,15 +141,32 @@ public class Main {
                             listaPopulacaoInvalidos.primeiraLinhaIncorreta = linhaNum;
                             primeiraInvalida = false;
                         }
-                        linhaNum++;
                         listaPopulacaoInvalidos.linhasIncorretas ++;
                     } else {
-                        Populacao populacao = new Populacao(Integer.parseInt(partes[0]),Integer.parseInt(partes[1]),
-                                Integer.parseInt(partes[2]),Integer.parseInt(partes[3]),Double.parseDouble(partes[4]));
-                        listaPopulacao.add(populacao);
-                        linhaNum++;
-                        listaPopulacaoInvalidos.linhasCorretas ++;
+                        boolean paisExiste = false;
+                        for (Pais pais: listaPaises) {
+                            if (Integer.parseInt(partes[0]) == pais.id) {
+                                paisExiste = true;
+                                if (pais.id >= 700) {
+                                    pais.indicadoresEstatisticos ++;
+                                }
+                                break;
+                            }
+                        }
+                        if (!paisExiste) {
+                            if (primeiraInvalida) {
+                                listaPopulacaoInvalidos.primeiraLinhaIncorreta = linhaNum;
+                                primeiraInvalida = false;
+                            }
+                            listaPopulacaoInvalidos.linhasIncorretas ++;
+                        } else {
+                            Populacao populacao = new Populacao(Integer.parseInt(partes[0]),Integer.parseInt(partes[1]),
+                                    Integer.parseInt(partes[2]),Integer.parseInt(partes[3]),Double.parseDouble(partes[4]));
+                            listaPopulacao.add(populacao);
+                            listaPopulacaoInvalidos.linhasCorretas ++;
+                        }
                     }
+                    linhaNum++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -165,6 +205,7 @@ public class Main {
         } else {
             System.out.println("Ficheiros lidos com sucesso em " + (end-start) + "ms");
         }
-        System.out.println(getObjects(TipoEntidade.INPUT_INVALIDO));
+        System.out.println(getObjects(TipoEntidade.PAIS));
+
     }
 }
