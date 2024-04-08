@@ -55,7 +55,7 @@ public class Main {
                             listaPaisesInvalidos.linhasIncorretas ++;
                         } else {
                             if (Integer.parseInt(partes[0]) >= 700) {
-                                Pais pais = new Pais(Integer.parseInt(partes[0]),partes[1].toUpperCase(),partes[2].toUpperCase(),partes[3],-1);
+                                Pais pais = new Pais(Integer.parseInt(partes[0]),partes[1].toUpperCase(),partes[2].toUpperCase(),partes[3],0);
                                 listaPaises.add(pais);
                                 listaPaisesInvalidos.linhasCorretas ++;
                             }else {
@@ -191,7 +191,7 @@ public class Main {
                 inputsInvalidos.add(listaPopulacaoInvalidos);
                 return inputsInvalidos;
 
-            case null, default:
+            default:
                 return new ArrayList<>();
         }
     }
