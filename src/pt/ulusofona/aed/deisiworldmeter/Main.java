@@ -31,8 +31,14 @@ public class Main {
                     primeiraLinha = false;
                 } else {
                     String[] partes = linha.split(",");
-                    if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
-                            partes[3] == "" || partes.length != 4) {
+                    if (partes.length != 4) {
+                        if (primeiraInvalida) {
+                            listaPaisesInvalidos.primeiraLinhaIncorreta = linhaNum;
+                            primeiraInvalida = false;
+                        }
+                        listaPaisesInvalidos.linhasIncorretas ++;
+                    } else if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
+                            partes[3] == "") {
                         if (primeiraInvalida) {
                             listaPaisesInvalidos.primeiraLinhaIncorreta = linhaNum;
                             primeiraInvalida = false;
@@ -86,8 +92,14 @@ public class Main {
                     primeiraLinha = false;
                 } else {
                     String[] partes = linha.split(",");
-                    if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
-                            partes[3] == "" || partes[4] == "" || partes[5] == "" || partes.length != 6) {
+                    if (partes.length != 6) {
+                        if (primeiraInvalida) {
+                            listaCidadesInvalidos.primeiraLinhaIncorreta = linhaNum;
+                            primeiraInvalida = false;
+                        }
+                        listaCidadesInvalidos.linhasIncorretas ++;
+                    }else if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
+                            partes[3] == "" || partes[4] == "" || partes[5] == "") {
                         if (primeiraInvalida) {
                             listaCidadesInvalidos.primeiraLinhaIncorreta = linhaNum;
                             primeiraInvalida = false;
@@ -135,8 +147,14 @@ public class Main {
                     primeiraLinha = false;
                 } else {
                     String[] partes = linha.split(",");
-                    if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
-                            partes[3] == "" || partes[4] == "" || partes.length != 5 || Objects.equals(partes[1], "Medium")) {
+                    if (partes.length != 5) {
+                        if (primeiraInvalida) {
+                            listaPopulacaoInvalidos.primeiraLinhaIncorreta = linhaNum;
+                            primeiraInvalida = false;
+                        }
+                        listaPopulacaoInvalidos.linhasIncorretas ++;
+                    }else if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
+                            partes[3] == "" || partes[4] == "" || Objects.equals(partes[1], "Medium")) {
                         if (primeiraInvalida) {
                             listaPopulacaoInvalidos.primeiraLinhaIncorreta = linhaNum;
                             primeiraInvalida = false;
