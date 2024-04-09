@@ -26,7 +26,7 @@ public class Main {
             listaPaisesInvalidos = new InputInvalido("paises.csv",0,0,-1);
             while (scannerPais.hasNext()){
                 String linha = scannerPais.nextLine();
-
+                linhaNum++;
                 if (primeiraLinha) {
                     primeiraLinha = false;
                 } else {
@@ -71,7 +71,7 @@ public class Main {
                             }
                         }
                     }
-                    linhaNum++;
+                    //linhaNum++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -88,6 +88,7 @@ public class Main {
             listaCidadesInvalidos = new InputInvalido("cidades.csv",0,0,-1);
             while (scannerCidades.hasNext()){
                 String linha = scannerCidades.nextLine();
+                linhaNum++;
                 if (primeiraLinha) {
                     primeiraLinha = false;
                 } else {
@@ -98,7 +99,7 @@ public class Main {
                             primeiraInvalida = false;
                         }
                         listaCidadesInvalidos.linhasIncorretas ++;
-                    }else if (partes[0] == "" || partes[1] == "" || partes[2] == "" ||
+                    }else if (partes[0] == "" || partes[2] == "" ||
                             partes[3] == "" || partes[4] == "" || partes[5] == "") {
                         if (primeiraInvalida) {
                             listaCidadesInvalidos.primeiraLinhaIncorreta = linhaNum;
@@ -126,7 +127,7 @@ public class Main {
                             listaCidadesInvalidos.linhasCorretas ++;
                         }
                     }
-                    linhaNum++;
+                    //linhaNum++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -142,6 +143,7 @@ public class Main {
             listaPopulacao = new ArrayList<Populacao>();
             listaPopulacaoInvalidos = new InputInvalido("populacao.csv",0,0,-1);
             while (scannerPopulacao.hasNext()){
+                linhaNum++;
                 String linha = scannerPopulacao.nextLine();
                 if (primeiraLinha) {
                     primeiraLinha = false;
@@ -184,7 +186,7 @@ public class Main {
                             listaPopulacaoInvalidos.linhasCorretas ++;
                         }
                     }
-                    linhaNum++;
+                    //linhaNum++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -216,14 +218,17 @@ public class Main {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
+        /*
         boolean parseOK = parseFiles(new File("C:\\Users\\nelso\\IdeaProjects\\WorldMeter"));
+        */
+        boolean parseOK = parseFiles(new File("C:\\Users\\nelso\\Documents\\IdeaProjects\\algoritmiaEstruturasDados\\WorldMeter"));
         long end = System.currentTimeMillis();
         if (!parseOK) {
             System.out.println("Erro na leitura dos ficheiros");
         } else {
             System.out.println("Ficheiros lidos com sucesso em " + (end-start) + "ms");
         }
-        System.out.println(getObjects(TipoEntidade.PAIS));
+        System.out.println(getObjects(TipoEntidade.INPUT_INVALIDO));
 
     }
 }
